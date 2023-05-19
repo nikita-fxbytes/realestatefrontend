@@ -13,9 +13,6 @@ const PropertyDetails = () => {
           
             <PropertySlider/>
             <PropertyFields/>
-          
-
-        
           <div class="row mb-5">
             <div class="col-md-12">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia recusandae esse reiciendis officia omnis non rerum dicta

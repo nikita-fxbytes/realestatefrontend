@@ -12,27 +12,27 @@ const Register = () => {
                 <div className="card-body">
                     <form action="index.html">
                     <div className="form-group">
-                    <label for="first_name">First Name</label>
+                    <label htmlFor="first_name">First Name</label>
                     <input type="text" name="first_name" className="form-control" required/>
                     </div>
                     <div className="form-group">
-                    <label for="last_name">Last Name</label>
+                    <label htmlFor="last_name">Last Name</label>
                     <input type="text" name="last_name" className="form-control" required/>
                     </div>
                     <div className="form-group">
-                    <label for="username">Username</label>
+                    <label htmlFor="username">Username</label>
                     <input type="text" name="username" className="form-control" required/>
                     </div>
                     <div className="form-group">
-                    <label for="email">Email</label>
+                    <label htmlFor="email">Email</label>
                     <input type="email" name="email" className="form-control" required/>
                     </div>
                     <div className="form-group">
-                    <label for="password2">Password</label>
+                    <label htmlFor="password2">Password</label>
                     <input type="password" name="password" className="form-control" required/>
                     </div>
                     <div className="form-group">
-                    <label for="password">Confirm Password</label>
+                    <label htmlFor="password">Confirm Password</label>
                     <input type="password" name="password2" className="form-control" required/>
                     </div>
                     <input type="submit" value="Register" className="btn btn-secondary btn-block"/>

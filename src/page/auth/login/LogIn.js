@@ -13,12 +13,12 @@ const LogIn = () => {
                 <div className="card-body">
                 <form action="index.html">
                     <div className="form-group">
-                    <label for="username">Username</label>
+                    <label htmlFor="username">Username</label>
                     <input type="text" name="username" className="form-control" required/>
                     </div>
 
                     <div className="form-group">
-                    <label for="password2">Password</label>
+                    <label htmlFor="password2">Password</label>
                     <input type="password" name="password" className="form-control" required/>
                     </div>
 
