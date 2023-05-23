@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Breadcrumb = () => {
   return (
@@ -7,8 +8,8 @@ const Breadcrumb = () => {
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
-            <a href="index.html">
-              <i className="fas fa-home"></i> Home</a>
+            <Link to="/">
+              <i className="fas fa-home"></i> Home</Link>
           </li>
           <li className="breadcrumb-item active"> About</li>
         </ol>

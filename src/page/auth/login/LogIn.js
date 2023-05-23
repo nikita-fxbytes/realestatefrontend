@@ -1,5 +1,9 @@
+import AuthMessages from "../AuthMessages"
+import LoginLogic from "./LoginLogic";
 
 const LogIn = () => {
+    const {login} = AuthMessages;
+    const{handleSubmit, handleChange,loader, errors} = LoginLogic();
   return (
     <section id="login" className="bg-light py-5">
         <div className="container">
@@ -11,18 +15,18 @@ const LogIn = () => {
                     <i className="fas fa-sign-in-alt"></i> Login</h4>
                 </div>
                 <div className="card-body">
-                <form action="index.html">
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                    <label htmlFor="username">Username</label>
-                    <input type="text" name="username" className="form-control" required/>
+                        <label>Email</label>
+                        <input onChange={handleChange} type="email" name="email" className="form-control"/>
+                        {errors.email && <label className="text-danger mb-0"> {errors.email}</label>}
                     </div>
-
                     <div className="form-group">
-                    <label htmlFor="password2">Password</label>
-                    <input type="password" name="password" className="form-control" required/>
+                        <label >Password</label>
+                        <input onChange={handleChange} type="password" name="password" className="form-control"/>
+                        {errors.password && <label className="text-danger mb-0"> {errors.password}</label>}
                     </div>
-
-                    <input type="submit" value="Login" className="btn btn-secondary btn-block"/>
+                    <button type="submit" className="btn btn-secondary btn-block" disabled={loader}>{login}</button>
                 </form>
                 </div>
             </div>

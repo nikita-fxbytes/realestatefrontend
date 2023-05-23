@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const TopHeader = () => {
   return (
     <section id="top-bar" className="p-3">
@@ -11,11 +13,11 @@ const TopHeader = () => {
             </div>
             <div className="col-md-4">
             <div className="social text-right">
-                <a href="#"><i className="fab fa-twitter"></i></a>
-                <a href="#"><i className="fab fa-facebook"></i></a>
-                <a href="#"><i className="fab fa-linkedin"></i></a>
-                <a href="#"><i className="fab fa-instagram"></i></a>
-                <a href="#"><i className="fab fa-pinterest"></i></a>
+                <Link href="#"><i className="fab fa-twitter"></i></Link>
+                <Link href="#"><i className="fab fa-facebook"></i></Link>
+                <Link href="#"><i className="fab fa-linkedin"></i></Link>
+                <Link href="#"><i className="fab fa-instagram"></i></Link>
+                <Link href="#"><i className="fab fa-pinterest"></i></Link>
             </div>
             </div>
         </div>

@@ -1,25 +1,21 @@
 import createAPI from "../../../api/Api";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { InquiryValidaions } from "./InquiryValidaions";
 import { toast } from 'react-toastify';
-import { RegisterValidations } from "./RegisterValidations";
-import { setUserToken } from "../../../helper/CommonFunction";
-import AuthContext from "../../../helper/auth/AuthContext";
-import { useNavigate } from "react-router-dom";
-const RegisterLogic = () => {
-  const { setIsLoggedIn, setUserName } = useContext(AuthContext);//Check login
-  const navigate = useNavigate();  //redirect another page
+const PropertyRealtorLogic = (propertyId) => {
   // Api
   const apiCreator = createAPI();
   const api = apiCreator(); 
   // Form value
   const [loader, setLoader] = useState(false);//Form loader
+  const [modalVisible, setModalVisible] = useState(false);
 
   const intialValues = {
     name: '',
     email: '',
     mobile: '',
-    password: '',
-    confirm_password: ''
+    message: '',
+    property: propertyId
   }
   const [formValues, setFormValues] = useState(intialValues);
   const [errors, setErrors] = useState({});//Error
@@ -43,12 +39,12 @@ const RegisterLogic = () => {
   const handleSubmit = (e) =>{
     console.log(formValues)
     e.preventDefault();
-    const errors = RegisterValidations(formValues);
+    const errors = InquiryValidaions(formValues);
     setErrors(errors);
     if(Object.keys(errors).length ===0){
-      const {name, email, mobile, password} = formValues;
-      const register = {name, email, mobile, password}
-      addInquiry(register);
+      const {name, email, mobile, message, property} = formValues;
+      const inquiry = {name, email, mobile, message, property}
+      addInquiry(inquiry);
     }
   }
   // End
@@ -56,43 +52,32 @@ const RegisterLogic = () => {
   const addInquiry = async(formValues) => {
     setLoader(true);
     try {
-      const res = await api.post(`/users/create`, formValues)
+      const res = await api.post(`/inquiries`, formValues)
       const resData = res.data;
-      console.log(resData)
       if(resData.status === true){
-        setUserToken(resData.authToken)
         toast.success(resData.message);
-        setIsLoggedIn(true);
-        setUserName(resData.user.name);
-        navigate('/properties');
-      }else if(resData.status === false){
-        console.log(resData.message)
-        resData.message.forEach(element => {
-          toast.error(element.msg);
-        });
+        setTimeout(()=>{
+          setModalVisible(false)
+        },1000)
         
+      }else if(resData.status === false){
+        toast.error(resData.message);
       }else{
-        console.log(resData.message)
         toast.error(resData.message);
       }
       
     } catch (error) {
-      console.log(error)
       const errorResponse = error.response.data;
       const message = errorResponse.message;
-      message.forEach(element => {
-        toast.error(element.msg);
-      });
       toast.error(message);
     }finally{
         setLoader(false);
       }
     }
   // End
-  return { handleSubmit, handleChange,loader, errors}
+  return { handleSubmit, handleChange,loader, errors, modalVisible, setModalVisible}
 }
-export default RegisterLogic;
-
+export default PropertyRealtorLogic;
 
 
 

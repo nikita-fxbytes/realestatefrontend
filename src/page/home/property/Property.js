@@ -1,25 +1,35 @@
-import React from 'react'
-import PropertiesBox from '../../../components/common/propertiesbox/PropertiesBox'
-
+import PropertyLogic from './PropertyLogic';
+import Spinner from '../../../components/common/spinner/Spinner'
+import PropertyMessage from '../../../helper/messages/PropertyMessage';
+import PropertiesBox from '../../../components/common/propertiesbox/PropertiesBox';
+import CommonMessage from '../../../helper/messages/CommonMessage';
 const Property = () => {
+  const {properties, loader} = PropertyLogic();//Logic
+ const {latest_listings} = PropertyMessage;//Meaage
+ const {no_data_found} = CommonMessage;//Message
   return (
     <section id="listings" className="py-5">
-        <div className="container">
-            <h3 className="text-center mb-3">Latest Listings</h3>
+      <div className="container">
+        <h3 className="text-center mb-3">{latest_listings}</h3>
+        {loader && <Spinner/>}
+        {
+          properties.length>0 ?
             <div className="row">
-                <div className="col-md-6 col-lg-4 mb-4">
-                    <PropertiesBox/>
+            {
+              properties.map((property)=>(
+                <div className="col-md-6 col-lg-4 mb-4" key={property._id}>
+                  {property && <PropertiesBox property={property}/>}
                 </div>
-                <div className="col-md-6 col-lg-4 mb-4">
-                    <PropertiesBox/>
-                </div>
-                <div className="col-md-6 col-lg-4 mb-4">
-                    <PropertiesBox/>
-                </div>
-            </div>
-        </div>
+              ))
+            }
+          </div>
+          :
+          <div className='text-center'>
+            {no_data_found}
+          </div>
+        }
+      </div>
     </section>
-  )
-}
-
-export default Property
+  );
+};
+export default Property;

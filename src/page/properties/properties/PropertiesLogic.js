@@ -1,27 +1,31 @@
 import { useEffect, useState } from "react";
-import createAPI from '../../api/Api';
+import { LIMIT, ORDERBY } from "../../../helper/Constent";
+import createAPI from '../../../api/Api';
 import { toast } from 'react-toastify';
-import { useParams } from "react-router-dom";
-const PropertyDetailsLogic = () => {
-  const [propertyDetails, setPropertyDetails] = useState('');
+const PropertiesLogic = () => {
+    const [properties, setProperties] = useState([]);
     const [loader, setLoader] = useState(false);
     const apiCreator = createAPI();
     const api = apiCreator(); 
-    const { slug } = useParams();//Get id
     useEffect(()=>{
-        getPropertyDetails(slug);
+        getProperties();
     },[]);
      // Get property api
-    const getPropertyDetails = async(slug) =>{
+    const getProperties = async() =>{
         setLoader(true);
         try {
         const body = {
-            slug: slug
+            sortColumn: ORDERBY.CREATEDAT,
+            sortDirection: ORDERBY.DESC,
+            page: LIMIT.ITEMONE,
+            perPage: LIMIT.ITEMTEN,
+            onlyActive: LIMIT.ITEMONE
         };
-        const res = await api.post(`/properties/details`, body)
+        const res = await api.post(`/properties`, body)
         const resData = res.data;
+        console.log(resData,"resData")
         if(resData.status === true){
-            setPropertyDetails(resData.property);
+            setProperties(resData.properties);
         }else if(resData.status === false){
             toast.error(resData.message);
         }else{
@@ -36,7 +40,8 @@ const PropertyDetailsLogic = () => {
         }
       }
       // End
-    return {propertyDetails, loader}
+    return {properties, loader}
 }
 
-export default PropertyDetailsLogic
+export default PropertiesLogic
+

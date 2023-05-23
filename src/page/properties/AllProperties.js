@@ -6,7 +6,7 @@ import Breadcrumb from '../../components/common/breadcrumb/Breadcrumb'
 const AllProperties = () => {
   return (
    <>
-      <Banner/>
+      <Banner pageTitle={'Browse Our Properties'}/>
       <Breadcrumb/>
       <Properties/>
    </>
