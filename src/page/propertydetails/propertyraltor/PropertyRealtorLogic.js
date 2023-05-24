@@ -1,7 +1,8 @@
 import createAPI from "../../../api/Api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InquiryValidaions } from "./InquiryValidaions";
 import { toast } from 'react-toastify';
+import { getUserToken } from "../../../helper/CommonFunction";
 const PropertyRealtorLogic = (propertyId) => {
   // Api
   const apiCreator = createAPI();
@@ -9,8 +10,19 @@ const PropertyRealtorLogic = (propertyId) => {
   // Form value
   const [loader, setLoader] = useState(false);//Form loader
   const [modalVisible, setModalVisible] = useState(false);
+  // Get Login details
+  const [logInDetails, setLogInDetails] = useState('');
+  const [logInLoader, setLogInLoader] = useState(false);
+  const checkLogin = getUserToken();
+  
+  // End
+  useEffect(()=>{
+    if(checkLogin){
+      getLoginDetails()
+    }
+  },[])
 
-  const intialValues = {
+  var intialValues = {
     name: '',
     email: '',
     mobile: '',
@@ -20,7 +32,34 @@ const PropertyRealtorLogic = (propertyId) => {
   const [formValues, setFormValues] = useState(intialValues);
   const [errors, setErrors] = useState({});//Error
   // End
-
+  const getLoginDetails= async() =>{
+    setLogInLoader(true);
+    try {
+      const res = await api.get('/profile');
+      const resData = res.data;
+      console.log(resData)
+      if(resData.status === true){
+        setLogInDetails(res.data.user)
+        console.log(logInDetails,":logInDetails")
+        setFormValues(prevValues => ({
+          ...prevValues,
+          name: res.data.user.name,
+          email: res.data.user.email,
+          mobile: res.data.user.mobile
+        }));
+      }else if(resData.status === false){
+        toast.error(resData.message);
+      }else{
+        toast.error(resData.message);
+      }
+    } catch (error) {
+      const errorResponse = error.response.data;
+      const message = errorResponse.message;
+      toast.error(message);
+    }finally{
+      setLogInLoader(false);
+    }
+  }
   // Input change
   const handleChange = (e) =>{
     let {name, value} = e.target;
@@ -75,7 +114,7 @@ const PropertyRealtorLogic = (propertyId) => {
       }
     }
   // End
-  return { handleSubmit, handleChange,loader, errors, modalVisible, setModalVisible}
+  return { handleSubmit, handleChange,loader, errors, modalVisible, setModalVisible, logInDetails, logInLoader}
 }
 export default PropertyRealtorLogic;
 

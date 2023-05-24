@@ -18,27 +18,27 @@ const Register = () => {
                         <div className="card-body">
                             <form onSubmit={handleSubmit}>
                                 <div className="form-group">
-                                    <label >First Name</label>
+                                    <label > Name<span className="text-danger">*</span></label>
                                     <input onChange={handleChange} type="text" name="name" className="form-control" />
                                     {errors.name && <label className="text-danger mb-0"> {errors.name}</label>}
                                 </div>
                                 <div className="form-group">
-                                    <label >Email</label>
+                                    <label >Email<span className="text-danger">*</span></label>
                                     <input onChange={handleChange} type="email" name="email" className="form-control"/>
                                     {errors.email && <label className="text-danger mb-0"> {errors.email}</label>}
                                 </div>
                                 <div className="form-group">
-                                    <label >Mobile</label>
+                                    <label >Mobile<span className="text-danger">*</span></label>
                                     <input onChange={handleChange} type="text" name="mobile" className="form-control"/>
                                     {errors.mobile && <label className="text-danger mb-0"> {errors.mobile}</label>}
                                 </div>
                                 <div className="form-group">
-                                    <label >Password</label>
+                                    <label >Password<span className="text-danger">*</span></label>
                                     <input onChange={handleChange} type="password" name="password" className="form-control"/>
                                     {errors.password && <label className="text-danger mb-0"> {errors.password}</label>}
                                 </div>
                                 <div className="form-group">
-                                    <label>Confirm Password</label>
+                                    <label>Confirm Password<span className="text-danger">*</span></label>
                                     <input onChange={handleChange} type="password" name="confirm_password" className="form-control"/>
                                     {errors.confirm_password && <label className="text-danger mb-0"> {errors.confirm_password}</label>}
                                 </div>

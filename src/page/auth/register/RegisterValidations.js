@@ -6,7 +6,6 @@ export const RegisterValidations = (values) => {
     password_required,
     name_required,
     name_more_than_characters,
-    status_required,
     email_required,
     email_format,
     mobile_required,

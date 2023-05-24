@@ -11,5 +11,6 @@ export const ORDERBY = {
     CREATEDAT: 'createdAt'
 };
 export const STATUSCODE={
-    UNAUTHENTICATED:401
+    UNAUTHENTICATED:401,
+    OBJECT: "object"
 };

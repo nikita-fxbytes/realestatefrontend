@@ -23,5 +23,7 @@ const CommonMessage = {
     password_formate: "Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long",
     confirm_password_required:"Confirm password is required.",
     confirm_password_mismatch:"Passwords do not match.",
+    current_password_required: "Current password is required",
+    new_password_required: "New password is required"
 }
 export default CommonMessage;

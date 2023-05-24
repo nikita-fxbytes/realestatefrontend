@@ -120,6 +120,9 @@ img {
     .text-decoration-none{
       text-decoration: none !important;
     }
+    .cursor-pointer{
+      cursor: pointer;
+    }
 /* Model class */
 
 
@@ -154,7 +157,10 @@ img {
   justify-content: space-between;
   align-items: center;
 }
-
+.sidebar .active{
+    background: #10284e;
+    color: #fff;
+}
 
 
 

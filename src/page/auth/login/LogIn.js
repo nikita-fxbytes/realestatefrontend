@@ -17,12 +17,12 @@ const LogIn = () => {
                 <div className="card-body">
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Email</label>
+                        <label>Email<span className="text-danger">*</span></label>
                         <input onChange={handleChange} type="email" name="email" className="form-control"/>
                         {errors.email && <label className="text-danger mb-0"> {errors.email}</label>}
                     </div>
                     <div className="form-group">
-                        <label >Password</label>
+                        <label >Password<span className="text-danger">*</span></label>
                         <input onChange={handleChange} type="password" name="password" className="form-control"/>
                         {errors.password && <label className="text-danger mb-0"> {errors.password}</label>}
                     </div>

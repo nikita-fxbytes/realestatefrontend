@@ -5,6 +5,7 @@ import { RegisterValidations } from "./RegisterValidations";
 import { setUserToken } from "../../../helper/CommonFunction";
 import AuthContext from "../../../helper/auth/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { STATUSCODE } from "../../../helper/Constent";
 const RegisterLogic = () => {
   const { setIsLoggedIn, setUserName } = useContext(AuthContext);//Check login
   const navigate = useNavigate();  //redirect another page
@@ -46,8 +47,8 @@ const RegisterLogic = () => {
     const errors = RegisterValidations(formValues);
     setErrors(errors);
     if(Object.keys(errors).length ===0){
-      const {name, email, mobile, password} = formValues;
-      const register = {name, email, mobile, password}
+      const {name, email, mobile, password, confirm_password} = formValues;
+      const register = {name, email, mobile, password, confirm_password}
       addInquiry(register);
     }
   }
@@ -80,10 +81,14 @@ const RegisterLogic = () => {
       console.log(error)
       const errorResponse = error.response.data;
       const message = errorResponse.message;
-      message.forEach(element => {
-        toast.error(element.msg);
-      });
-      toast.error(message);
+      const messageType = typeof(message)
+      if(messageType === STATUSCODE.OBJECT){
+        message.forEach(element => {
+          toast.error(element.msg);
+        });
+      }else{
+        toast.error(message);
+      }
     }finally{
         setLoader(false);
       }

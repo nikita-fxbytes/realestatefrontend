@@ -7,7 +7,7 @@ const AllProperties = () => {
   return (
    <>
       <Banner pageTitle={'Browse Our Properties'}/>
-      <Breadcrumb/>
+      <Breadcrumb pageName={'Properties'}/>
       <Properties/>
    </>
   )

@@ -3,8 +3,9 @@ import { useContext, useState } from "react";
 import { toast } from 'react-toastify';
 import { setUserToken } from "../../../helper/CommonFunction";
 import AuthContext from "../../../helper/auth/AuthContext";
-import { useNavigate } from "react-router-dom";
 import { LoginValidations } from "./LoginValidations";
+import { STATUSCODE } from "../../../helper/Constent";
+import { useNavigate } from 'react-router-dom';
 const LoginLogic = () => {
   const { setIsLoggedIn, setUserName } = useContext(AuthContext);//Check login
   const navigate = useNavigate();  //redirect another page
@@ -40,12 +41,12 @@ const LoginLogic = () => {
     if(Object.keys(errors).length ===0){
       const {email,password} = formValues;
       const login = { email, password}
-      addInquiry(login);
+      loginForm(login);
     }
   }
   // End
   // Add property api
-  const addInquiry = async(formValues) => {
+  const loginForm = async(formValues) => {
     setLoader(true);
     try {
       const res = await api.post(`/login`, formValues)
@@ -56,26 +57,26 @@ const LoginLogic = () => {
         toast.success(resData.message);
         setIsLoggedIn(true);
         setUserName(resData.user.name);
-        navigate('/properties');
+        navigate(-1);
+
       }else if(resData.status === false){
         console.log(resData.message)
-        resData.message.forEach(element => {
-          toast.error(element.msg);
-        });
-        
+        toast.error(resData.message);
       }else{
-        console.log(resData.message)
         toast.error(resData.message);
       }
       
     } catch (error) {
-      console.log(error)
       const errorResponse = error.response.data;
       const message = errorResponse.message;
-      message.forEach(element => {
-        toast.error(element.msg);
-      });
-      toast.error(message);
+      const messageType = typeof(message)
+      if(messageType === STATUSCODE.OBJECT){
+        message.forEach(element => {
+          toast.error(element.msg);
+        });
+      }else{
+        toast.error(message);
+      }
     }finally{
         setLoader(false);
       }
